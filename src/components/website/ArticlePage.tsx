@@ -24,7 +24,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
 
   if (!article) {
     return (
-      <div className="max-w-4xl mx-auto text-center py-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center py-20">
         <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-30" />
         <h1 className="text-2xl font-bold mb-2">Article Not Found</h1>
         <p className="text-muted-foreground mb-4">The article you are looking for does not exist.</p>
@@ -46,7 +46,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+      <div className="flex min-w-0 items-center gap-2 text-sm text-muted-foreground mb-6">
         <a href="/" className="hover:text-primary transition-colors">Home</a>
         <span>/</span>
         <a href="/guides" className="hover:text-primary transition-colors">Guides</a>
@@ -63,7 +63,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
               <Badge variant="secondary" className={`mb-3 ${categoryColors[article.category] || ''}`}>
                 {article.category}
               </Badge>
-              <h1 className="text-2xl sm:text-3xl font-bold mb-3">{article.title}</h1>
+              <h1 className="text-[1.65rem] sm:text-3xl font-bold mb-3 leading-tight break-words">{article.title}</h1>
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
