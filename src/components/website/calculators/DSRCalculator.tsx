@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Calculator, Info, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
@@ -25,21 +26,27 @@ export default function DSRCalculator() {
     maxHousing: number;
   } | null>(null);
 
+  const { resultRef, justCalculated, runCalculation } = useCalculatorAction();
+
   const handleCalculate = useCallback(() => {
+    runCalculation(() => {
     const income = parseFloat(grossIncome) || 0;
     const car = parseFloat(carLoan) || 0;
     const cc = parseFloat(creditCards) || 0;
     const other = parseFloat(otherLoans) || 0;
     const house = parseFloat(housing) || 0;
 
-    if (income <= 0) return;
+    if (income <= 0) return false;
 
     const totalDebt = car + cc + other + house;
     const dsr = (totalDebt / income) * 100;
     const maxHousing = income * 0.6 - (car + cc + other);
 
     setResult({ dsr, totalDebt, maxHousing: Math.max(0, maxHousing) });
-  }, [grossIncome, carLoan, creditCards, otherLoans, housing]);
+
+      return true;
+    });
+  }, [grossIncome, carLoan, creditCards, otherLoans, housing, runCalculation]);
 
 
   const getDSRColor = (dsr: number) => {
@@ -61,15 +68,15 @@ export default function DSRCalculator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-0">
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <a href="/" className="hover:text-primary transition-colors">Home</a>
           <span>/</span>
           <span className="text-foreground font-medium">DSR Calculator</span>
         </div>
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-          <Calculator className="w-8 h-8 text-primary" />
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 flex items-start sm:items-center gap-3 leading-tight">
+          <Calculator className="w-7 h-7 sm:w-8 sm:h-8 text-primary shrink-0" />
           DSR Calculator Malaysia
         </h1>
         <p className="text-muted-foreground">
@@ -118,12 +125,12 @@ export default function DSRCalculator() {
 
             <Button onClick={handleCalculate} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Calculator className="w-4 h-4 mr-2" />
-              Calculate DSR
+              {justCalculated ? 'Updated' : 'Calculate DSR'}
             </Button>
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
+        <div ref={resultRef} className="space-y-4 scroll-mt-20">
           {result ? (
             <>
               <Card className={`shadow-sm border-2 ${getDSRColor(result.dsr)}`}>

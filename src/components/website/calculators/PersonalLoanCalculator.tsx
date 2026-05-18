@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import {
   Select,
   SelectContent,
@@ -31,11 +32,14 @@ export default function PersonalLoanCalculator() {
     totalRepayment: number;
   } | null>(null);
 
+  const { resultRef, justCalculated, runCalculation } = useCalculatorAction();
+
   const handleCalculate = useCallback(() => {
+    runCalculation(() => {
     const principal = parseFloat(loanAmount) || 0;
     const rate = parseFloat(interestRate) || 0;
     const years = parseFloat(tenure) || 0;
-    if (principal <= 0 || rate <= 0 || years <= 0) return;
+    if (principal <= 0 || rate <= 0 || years <= 0) return false;
 
     if (calcType === 'reducing') {
       const r = rate / 100 / 12;
@@ -48,7 +52,10 @@ export default function PersonalLoanCalculator() {
       const totalRepayment = principal + totalInterest;
       setResult({ monthlyPayment: totalRepayment / (years * 12), totalInterest, totalRepayment });
     }
-  }, [loanAmount, interestRate, tenure, calcType]);
+
+      return true;
+    });
+  }, [loanAmount, interestRate, tenure, calcType, runCalculation]);
 
 
   const principal = parseFloat(loanAmount) || 0;
@@ -56,15 +63,15 @@ export default function PersonalLoanCalculator() {
   const interestPercent = result ? (result.totalInterest / result.totalRepayment) * 100 : 50;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-0">
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <a href="/" className="hover:text-primary transition-colors">Home</a>
           <span>/</span>
           <span className="text-foreground font-medium">Personal Loan Calculator</span>
         </div>
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-          <CreditCard className="w-8 h-8 text-primary" />
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 flex items-start sm:items-center gap-3 leading-tight">
+          <CreditCard className="w-7 h-7 sm:w-8 sm:h-8 text-primary shrink-0" />
           Personal Loan Calculator Malaysia
         </h1>
         <p className="text-muted-foreground">
@@ -105,12 +112,12 @@ export default function PersonalLoanCalculator() {
             </div>
             <Button onClick={handleCalculate} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Calculator className="w-4 h-4 mr-2" />
-              Calculate Personal Loan
+              {justCalculated ? 'Updated' : 'Calculate Personal Loan'}
             </Button>
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
+        <div ref={resultRef} className="space-y-4 scroll-mt-20">
           {result ? (
             <Card className="shadow-sm">
               <CardContent className="pt-6 space-y-4">

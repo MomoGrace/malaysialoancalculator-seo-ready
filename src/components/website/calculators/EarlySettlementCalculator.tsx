@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import {
   Select,
   SelectContent,
@@ -35,13 +36,16 @@ export default function EarlySettlementCalculator() {
     originalTotalInterest: number;
   } | null>(null);
 
+  const { resultRef, justCalculated, runCalculation } = useCalculatorAction();
+
   const handleCalculate = useCallback(() => {
+    runCalculation(() => {
     const principal = parseFloat(loanAmount) || 0;
     const rate = parseFloat(interestRate) || 0;
     const years = parseFloat(tenure) || 0;
     const paid = parseInt(monthsPaid) || 0;
 
-    if (principal <= 0 || rate <= 0 || years <= 0 || paid <= 0) return;
+    if (principal <= 0 || rate <= 0 || years <= 0 || paid <= 0) return false;
 
     const totalMonths = years * 12;
 
@@ -83,7 +87,7 @@ export default function EarlySettlementCalculator() {
       const totalInterestPaid = (totalInterest / totalMonths) * paid;
       const remaining = totalRepayment - totalPaid;
 
-      if (remaining < 0) return;
+      if (remaining < 0) return false;
 
       setResult({
         remainingBalance: remaining,
@@ -94,19 +98,22 @@ export default function EarlySettlementCalculator() {
         originalTotalInterest,
       });
     }
-  }, [loanAmount, interestRate, tenure, monthsPaid, calcType]);
+
+      return true;
+    });
+  }, [loanAmount, interestRate, tenure, monthsPaid, calcType, runCalculation]);
 
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-0">
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <a href="/" className="hover:text-primary transition-colors">Home</a>
           <span>/</span>
           <span className="text-foreground font-medium">Early Settlement Calculator</span>
         </div>
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-          <TrendingDown className="w-8 h-8 text-primary" />
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 flex items-start sm:items-center gap-3 leading-tight">
+          <TrendingDown className="w-7 h-7 sm:w-8 sm:h-8 text-primary shrink-0" />
           Early Loan Settlement Calculator Malaysia
         </h1>
         <p className="text-muted-foreground">
@@ -151,12 +158,12 @@ export default function EarlySettlementCalculator() {
             </div>
             <Button onClick={handleCalculate} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Calculator className="w-4 h-4 mr-2" />
-              Calculate Early Settlement
+              {justCalculated ? 'Updated' : 'Calculate Early Settlement'}
             </Button>
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
+        <div ref={resultRef} className="space-y-4 scroll-mt-20">
           {result ? (
             <>
               <Card className="shadow-sm">

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import {
   Select,
   SelectContent,
@@ -61,12 +62,20 @@ export default function GeneralLoanCalculator({ compact = false }: GeneralLoanCa
   const [calcType, setCalcType] = useState<'reducing' | 'flat'>('reducing');
   const [result, setResult] = useState<LoanResult | null>(null);
 
+  const { resultRef, justCalculated, runCalculation } = useCalculatorAction();
+
   const handleCalculate = useCallback(() => {
+    runCalculation(() => {
     const p = parseFloat(loanAmount) || 0;
     const r = parseFloat(interestRate) || 0;
     const t = parseFloat(tenure) || 0;
-    setResult(calculateLoan(p, r, t, calcType));
-  }, [loanAmount, interestRate, tenure, calcType]);
+    const nextResult = calculateLoan(p, r, t, calcType);
+    if (!nextResult) return false;
+    setResult(nextResult);
+
+      return true;
+    });
+  }, [loanAmount, interestRate, tenure, calcType, runCalculation]);
 
 
   const principal = parseFloat(loanAmount) || 0;
@@ -140,12 +149,12 @@ export default function GeneralLoanCalculator({ compact = false }: GeneralLoanCa
 
             <Button onClick={handleCalculate} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Calculator className="w-4 h-4 mr-2" />
-              Calculate
+              {justCalculated ? 'Updated' : 'Calculate'}
             </Button>
           </div>
 
           {/* Results Section */}
-          <div className="space-y-3">
+          <div ref={resultRef} className="space-y-3 scroll-mt-20">
             {result ? (
               <>
                 <div className="grid grid-cols-1 gap-3">
