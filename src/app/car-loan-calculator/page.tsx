@@ -29,11 +29,24 @@ export default function Page() {
     description: 'Calculate Malaysian car loan instalment, total interest and total repayment using flat rate hire purchase examples.',
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Car Loan Calculator', item: 'https://malaysialoancalculator.com/car-loan-calculator' },
+    ],
+  };
+
   return (
     <SiteShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <CarLoanCalculator />
     </SiteShell>

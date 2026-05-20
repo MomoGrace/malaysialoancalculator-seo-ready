@@ -14,8 +14,36 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'LoanCalc Malaysia',
+    url: 'https://malaysialoancalculator.com',
+    description: 'Free Malaysia loan calculator to estimate monthly repayment, total interest and total payment for car loans, home loans, personal loans in Malaysia.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://malaysialoancalculator.com/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'LoanCalc Malaysia',
+    url: 'https://malaysialoancalculator.com',
+  };
+
   return (
     <SiteShell isHome>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       <HomePage />
     </SiteShell>
   );
