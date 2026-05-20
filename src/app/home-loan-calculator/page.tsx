@@ -29,11 +29,24 @@ export default function Page() {
     description: 'Estimate Malaysian home loan monthly repayment, total interest and housing loan costs using reducing balance examples.',
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Home Loan Calculator', item: 'https://malaysialoancalculator.com/home-loan-calculator' },
+    ],
+  };
+
   return (
     <SiteShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <HomeLoanCalculator />
     </SiteShell>

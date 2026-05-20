@@ -29,11 +29,24 @@ export default function Page() {
     description: 'Estimate early loan settlement balance, interest savings and possible rebate for Malaysian loan planning.',
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Early Settlement Calculator', item: 'https://malaysialoancalculator.com/early-settlement-calculator' },
+    ],
+  };
+
   return (
     <SiteShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <EarlySettlementCalculator />
     </SiteShell>

@@ -29,11 +29,24 @@ export default function Page() {
     description: 'Estimate Malaysian property valuation fees based on common fee scale examples for planning purposes.',
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Valuation Fee Calculator', item: 'https://malaysialoancalculator.com/valuation-fee-calculator' },
+    ],
+  };
+
   return (
     <SiteShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ValuationFeeCalculator />
     </SiteShell>

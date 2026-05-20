@@ -29,11 +29,24 @@ export default function Page() {
     description: 'Calculate Malaysian personal loan monthly repayment, interest cost and total repayment for planning purposes.',
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Personal Loan Calculator', item: 'https://malaysialoancalculator.com/personal-loan-calculator' },
+    ],
+  };
+
   return (
     <SiteShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <PersonalLoanCalculator />
     </SiteShell>
