@@ -6,9 +6,17 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { FormEvent, useState } from 'react';
 import { MapPin, Clock, Send, Info, ShieldAlert, AlertTriangle } from 'lucide-react';
 
 export default function Contact() {
+  const [showSubmitNotice, setShowSubmitNotice] = useState(false);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setShowSubmitNotice(true);
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
@@ -60,34 +68,41 @@ export default function Contact() {
               <CardTitle className="text-lg">Send Us a Message</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" placeholder="Your full name" />
+                  <Input id="name" placeholder="Your full name" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" />
+                  <Input id="email" type="email" placeholder="your@email.com" required />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Input id="subject" placeholder="What is this about?" />
+                <Input id="subject" placeholder="What is this about?" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Your message..." rows={5} />
+                <Textarea id="message" placeholder="Your message..." rows={5} required />
               </div>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Send className="w-4 h-4 mr-2" />
                 Send Message
               </Button>
+              {showSubmitNotice && (
+                <p className="text-sm text-foreground">
+                  Thank you. For actual inquiries, please email us directly at malaysialoancalculator@proton.me.
+                </p>
+              )}
               <Alert className="bg-muted/50">
                 <Info className="h-4 w-4" />
                 <AlertDescription className="text-xs text-muted-foreground">
                   This is a demonstration contact form. For actual inquiries, please reach out to us via email at the address provided.
                 </AlertDescription>
               </Alert>
+              </form>
             </CardContent>
           </Card>
         </div>
