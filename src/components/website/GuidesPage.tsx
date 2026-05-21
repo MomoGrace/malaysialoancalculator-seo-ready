@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { articles } from '@/data/articles';
@@ -13,8 +13,35 @@ const categoryColors: Record<string, string> = {
 };
 
 const categories = ['All', 'Car Loan', 'Home Loan', 'Personal Loan', 'General Finance'];
+const categoryDataMap: Record<string, string> = {
+  All: 'all',
+  'Car Loan': 'car-loan',
+  'Home Loan': 'home-loan',
+  'Personal Loan': 'personal-loan',
+  'General Finance': 'general-finance',
+};
+const articleCategoryMap: Record<string, string> = {
+  'Car Loan': 'car',
+  'Home Loan': 'home',
+  'Personal Loan': 'personal',
+  'General Finance': 'general',
+};
+
+const filterToArticleCategory: Record<string, string> = {
+  all: 'all',
+  'car-loan': 'Car Loan',
+  'home-loan': 'Home Loan',
+  'personal-loan': 'Personal Loan',
+  'general-finance': 'General Finance',
+};
 
 export default function GuidesPage() {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filteredArticles = activeFilter === 'all'
+    ? articles
+    : articles.filter((a) => a.category === filterToArticleCategory[activeFilter]);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
@@ -35,19 +62,27 @@ export default function GuidesPage() {
       {/* Category badges */}
       <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
-          <Badge key={cat} variant="secondary" className="px-3 py-1.5 text-sm cursor-default">
+          <Badge
+            key={cat}
+            variant="secondary"
+            className={`guide-filter-btn px-3 py-1.5 text-sm cursor-pointer ${activeFilter === categoryDataMap[cat] ? 'bg-primary text-primary-foreground' : ''}`}
+            data-category={categoryDataMap[cat]}
+            onClick={() => setActiveFilter(categoryDataMap[cat])}
+          >
             {cat}
           </Badge>
         ))}
       </div>
 
       {/* Articles Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {articles.map((article) => (
+      <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div id="guidesEmptyState" style={{ display: filteredArticles.length === 0 ? 'block' : 'none', textAlign: 'center', padding: '40px', gridColumn: '1/-1' }}>No guides found for this category.</div>
+        {filteredArticles.map((article) => (
           <a
             key={article.slug}
             href={`/guides/${article.slug}`}
             className="calc-card-hover block text-left bg-card border border-border rounded-xl p-5 hover:border-primary/30"
+            data-category={articleCategoryMap[article.category]}
           >
             <Badge variant="secondary" className={`text-xs mb-2 ${categoryColors[article.category] || ''}`}>
               {article.category}
