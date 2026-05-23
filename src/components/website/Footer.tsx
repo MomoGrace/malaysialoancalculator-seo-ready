@@ -114,6 +114,15 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openCookiePreferences}
+                  className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors"
+                >
+                  Cookie Preferences
+                </button>
+              </li>
             </ul>
           </div>
         </div>
