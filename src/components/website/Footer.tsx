@@ -22,6 +22,10 @@ const siteLinks = [
 ];
 
 export default function Footer() {
+  const openCookiePreferences = () => {
+    if (typeof window === 'undefined') return;
+    window.dispatchEvent(new Event('mlc-open-cookie-preferences'));
+  };
   return (
     <footer className="bg-foreground text-background">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12">
@@ -117,9 +121,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs opacity-60">
-              &copy; 2026 LoanCalc Malaysia. All rights reserved.
-            </p>
+            <div className="text-xs opacity-60 flex items-center gap-3">
+              <p>&copy; 2026 LoanCalc Malaysia. All rights reserved.</p>
+              <button type="button" onClick={openCookiePreferences} className="underline hover:no-underline">Cookie Preferences</button>
+            </div>
             <p className="text-xs opacity-90 text-center sm:text-right max-w-lg">
               <AlertTriangle className="w-3 h-3 inline mr-1" />
               Disclaimer: Calculators are for educational and estimation purposes only. Results should not be considered financial advice. Please consult your bank, lawyer, licensed financial adviser, or relevant professional before making any financial decision.

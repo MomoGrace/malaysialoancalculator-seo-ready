@@ -1,9 +1,10 @@
+(async () => {
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   Header, Footer, PageNumber, AlignmentType, HeadingLevel, WidthType,
   BorderStyle, ShadingType, PageBreak, LevelFormat, TableOfContents,
-} = require("docx");
-const fs = require("fs");
+} = await import("docx");
+const fs = await import("fs");
 
 // Palette: Tech / Finance theme
 const P = {
@@ -637,3 +638,5 @@ Packer.toBuffer(doc).then((buffer) => {
   fs.writeFileSync("/home/z/my-project/download/MalaysiaLoanCalculator-Handoff-Documentation.docx", buffer);
   console.log("Handoff document generated successfully!");
 });
+
+})();

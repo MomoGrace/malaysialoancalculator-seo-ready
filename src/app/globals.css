@@ -45,6 +45,8 @@
 
 :root {
   --radius: 0.625rem;
+  --font-geist-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   --background: oklch(0.99 0.002 155);
   --foreground: oklch(0.15 0.02 160);
   --card: oklch(1 0 0);
