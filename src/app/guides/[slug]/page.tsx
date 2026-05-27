@@ -57,11 +57,11 @@ export default async function Page({ params }: Props) {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    url: `https://malaysialoancalculator.com/guides/${article.slug}`,
+    url: `https://www.malaysialoancalculator.com/guides/${article.slug}`,
     datePublished: article.date,
     dateModified: article.date,
-    author: { '@type': 'Organization', name: 'LoanCalc Malaysia', url: 'https://malaysialoancalculator.com' },
-    publisher: { '@type': 'Organization', name: 'LoanCalc Malaysia', url: 'https://malaysialoancalculator.com' },
+    author: { '@type': 'Organization', name: 'LoanCalc Malaysia', url: 'https://www.malaysialoancalculator.com' },
+    publisher: { '@type': 'Organization', name: 'LoanCalc Malaysia', url: 'https://www.malaysialoancalculator.com' },
   };
 
   const faqPageSchema = {
@@ -81,9 +81,9 @@ export default async function Page({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://malaysialoancalculator.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://malaysialoancalculator.com/guides' },
-      { '@type': 'ListItem', position: 3, name: article.title, item: `https://malaysialoancalculator.com/guides/${article.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.malaysialoancalculator.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://www.malaysialoancalculator.com/guides' },
+      { '@type': 'ListItem', position: 3, name: article.title, item: `https://www.malaysialoancalculator.com/guides/${article.slug}` },
     ],
   };
 

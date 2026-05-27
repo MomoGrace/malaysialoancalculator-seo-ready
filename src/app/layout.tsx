@@ -3,7 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://malaysialoancalculator.com"),
+  metadataBase: new URL("https://www.malaysialoancalculator.com"),
   title: "Loan Calculator Malaysia | Car, Home & Personal Loan Calculator",
   description:
     "Free Malaysia loan calculator to estimate monthly repayment, total interest and total payment for car loans, home loans, personal loans in Malaysia.",

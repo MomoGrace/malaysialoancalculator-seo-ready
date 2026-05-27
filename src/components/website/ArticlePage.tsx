@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ChevronLeft, ChevronRight, Calendar, Clock, Info, BookOpen } from 'lucide-react';
 import { articles } from '@/data/articles';
@@ -103,14 +103,16 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
           {article.faq && article.faq.length > 0 && (
             <div className="mt-10">
               <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
-              <Accordion type="single" collapsible className="w-full">
+              <div className="space-y-3">
                 {article.faq.map((item, idx) => (
-                  <AccordionItem key={idx} value={`faq-${idx}`}>
-                    <AccordionTrigger className="text-sm text-left">{item.question}</AccordionTrigger>
-                    <AccordionContent className="text-sm text-muted-foreground">{item.answer}</AccordionContent>
-                  </AccordionItem>
+                  <details key={idx} className="group border rounded-lg">
+                    <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">{item.question}</summary>
+                    <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+                      <p>{item.answer}</p>
+                    </div>
+                  </details>
                 ))}
-              </Accordion>
+              </div>
             </div>
           )}
 

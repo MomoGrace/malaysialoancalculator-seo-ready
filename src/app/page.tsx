@@ -18,11 +18,11 @@ export default function Page() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'LoanCalc Malaysia',
-    url: 'https://malaysialoancalculator.com',
+    url: 'https://www.malaysialoancalculator.com',
     description: 'Free Malaysia loan calculator to estimate monthly repayment, total interest and total payment for car loans, home loans, personal loans in Malaysia.',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://malaysialoancalculator.com/?q={search_term_string}',
+      target: 'https://www.malaysialoancalculator.com/?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };
@@ -31,7 +31,7 @@ export default function Page() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'LoanCalc Malaysia',
-    url: 'https://malaysialoancalculator.com',
+    url: 'https://www.malaysialoancalculator.com',
   };
 
   return (

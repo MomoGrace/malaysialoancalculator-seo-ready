@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Calculator, Info, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
 
 function formatCurrency(value: number): string {
@@ -191,44 +190,78 @@ export default function DSRCalculator() {
 
       <div className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="q1">
-            <AccordionTrigger>What is DSR (Debt Service Ratio) and why does it matter?</AccordionTrigger>
-            <AccordionContent>
-              DSR (Debt Service Ratio) is a key financial metric used by Malaysian banks to measure the percentage of your monthly income that goes towards servicing existing debt obligations. Bank Negara Malaysia (BNM) guidelines require all financial institutions to assess a borrower's DSR before approving any new credit facility, ensuring responsible lending practices and protecting consumers from over-indebtedness. Different banks in Malaysia set different DSR thresholds — for example, Maybank and CIMB typically cap housing loan DSR at 60-70%, while Public Bank may be slightly more conservative at around 55-65% depending on the applicant's income bracket. A lower DSR indicates stronger repayment capacity and significantly improves your chances of loan approval, often leading to better interest rate offers as well. If your DSR is too high, banks may reject your application outright or approve a smaller loan amount with higher interest rates, making it crucial to understand and manage your DSR before applying for any financing in Malaysia.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q2">
-            <AccordionTrigger>How is DSR calculated?</AccordionTrigger>
-            <AccordionContent>
-              DSR is calculated using the formula: DSR = (Total Monthly Debt Commitments ÷ Monthly Net Income) × 100. For example, if your monthly net income is RM5,000 and your total monthly debt commitments (car loan RM800, credit card minimum payment RM500, personal loan RM300, and proposed housing loan RM1,200) add up to RM2,800, your DSR would be 56%. It is important to note that most Malaysian banks use net income (income after EPF, SOCSO, and income tax deductions) rather than gross income, though some may consider gross income for certain loan products. Debt commitments include all existing instalments such as car loans, personal loans, study loans, credit card minimum payments (typically 5% of outstanding balance or RM50, whichever is higher), hire purchase, and any overdraft facilities. Some banks like Maybank also factor in standing commitments such as rental payments, alimony, and even utility bills when assessing your full financial picture.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q3">
-            <AccordionTrigger>How can I improve my DSR?</AccordionTrigger>
-            <AccordionContent>
-              There are several practical strategies to improve your DSR in the Malaysian context. First, prioritise paying off high-interest debts such as credit card balances — clearing a RM10,000 credit card outstanding balance can reduce your minimum monthly commitment by RM500, instantly lowering your DSR. Second, explore ways to increase your income, such as taking on freelance work, requesting a salary increment, or declaring side income streams like e-commerce sales or rental income from a sublet property (with proper documentation). Third, reduce your number of active credit cards — having 5 credit cards with RM50 minimum payments each adds RM250 to your monthly commitments, so close unused cards before applying for a loan. Fourth, consider consolidating multiple debts into a single lower-interest personal loan, which can reduce your total monthly instalment amount — for instance, merging three personal loans with combined monthly payments of RM1,500 into one consolidation loan at RM1,100 saves you RM400 per month. Fifth, use your EPF Account 2 or Account 3 statements as proof of savings and financial discipline, as some banks like RHB and Hong Leong Bank may offer more favourable DSR assessments for applicants who can demonstrate strong EPF contributions and healthy savings history.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q4">
-            <AccordionTrigger>Does DSR affect all types of loan applications?</AccordionTrigger>
-            <AccordionContent>
-              Yes, DSR impacts virtually every type of loan application in Malaysia, but the strictness of assessment varies significantly across loan products. Housing loans are the most strictly assessed, with banks typically requiring a DSR below 60-70% because of the large loan amounts and long repayment periods involved — for instance, a RM500,000 home loan over 30 years represents a significant long-term commitment. Car loans generally have slightly more relaxed DSR thresholds, with some banks accepting DSRs up to 70-75% since the loan tenure is shorter (typically 5-9 years) and the collateral (the vehicle) provides additional security for the bank. Personal loans and overdraft facilities are assessed on a case-by-case basis, with banks like Alliance Bank and AmBank sometimes approving applicants with DSRs up to 80% but at higher interest rates. Credit card applications use a different but related assessment — banks evaluate your existing credit utilisation and minimum payment burden, and if your total card minimum payments already consume a large portion of your income, new card applications may be declined or approved with very low credit limits (as low as RM2,000 instead of the typical RM5,000-10,000).
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q5">
-            <AccordionTrigger>What is a healthy DSR for loan approval in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              In Malaysia, a DSR of 30-40% is considered ideal and puts you in the strongest position for loan approval with the best interest rates — for example, with a RM6,000 monthly income and total debts of RM1,800, you sit at a comfortable 30% DSR. A DSR between 40-60% is still widely acceptable for most banks and loan types, though some premium banks like OCBC and Standard Chartered may offer slightly less competitive rates compared to applicants in the ideal range. Once your DSR crosses 60%, approvals become more challenging — banks like Maybank and CIMB may still approve your application but often impose stricter conditions such as requiring a guarantor, requesting additional collateral, or offering the loan at a higher interest rate (BLR + 1.5% instead of BLR + 0.8%). A DSR above 70% is considered high-risk by virtually all Malaysian banks, and your application is likely to be rejected unless you have exceptional circumstances such as a very high net worth, substantial fixed deposits with the bank, or a strong existing banking relationship. As a general rule, keeping your DSR below 50% gives you the most flexibility and negotiating power when applying for financing in Malaysia.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q6">
-            <AccordionTrigger>How does CCRIS and CTOS affect my DSR and loan application?</AccordionTrigger>
-            <AccordionContent>
-              CCRIS (Central Credit Reference Information System) and CTOS are the two main credit reporting systems used by Malaysian banks when evaluating your loan application, and both have a direct impact on how your DSR is perceived. CCRIS is maintained by Bank Negara Malaysia and provides a comprehensive record of all your credit facilities, outstanding balances, and monthly payment behaviour over the past 12 months — banks use this to verify the debt commitments you declare in your DSR calculation, and any discrepancies can cause immediate rejection. CTOS, operated by CTOS Data Systems Sdn Bhd, provides additional information including legal cases, bankruptcy records, and litigation history that may not appear in CCRIS. Negative records that can severely hurt your application include late payments (even 1-2 days late are recorded), dishonoured cheques, default judgments, and being listed under the Bankruptcy Act 1967 — for instance, having 3 or more late payment records in your CCRIS report within the past 12 months will likely result in rejection by major banks. To improve your credit profile before applying, request your free CCRIS report from BNM and your CTOS report from myCTOS.com, then ensure all outstanding debts are brought current, dispute any inaccurate records, and maintain at least 6 months of clean on-time payment history before submitting a new loan application.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <div className="space-y-3">
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">What is DSR (Debt Service Ratio) and why does it matter?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>DSR (Debt Service Ratio) is a key financial metric used by Malaysian banks to measure the percentage of your monthly income that goes towards servicing existing debt obligations. Bank Negara Malaysia (BNM) guidelines require all financial institutions to assess a borrower's DSR before approving any new credit facility, ensuring responsible lending practices and protecting consumers from over-indebtedness. Different banks in Malaysia set different DSR thresholds — for example, Maybank and CIMB typically cap housing loan DSR at 60-70%, while Public Bank may be slightly more conservative at around 55-65% depending on the applicant's income bracket. A lower DSR indicates stronger repayment capacity and significantly improves your chances of loan approval, often leading to better interest rate offers as well. If your DSR is too high, banks may reject your application outright or approve a smaller loan amount with higher interest rates, making it crucial to understand and manage your DSR before applying for any financing in Malaysia.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">How is DSR calculated?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>DSR is calculated using the formula: DSR = (Total Monthly Debt Commitments ÷ Monthly Net Income) × 100. For example, if your monthly net income is RM5,000 and your total monthly debt commitments (car loan RM800, credit card minimum payment RM500, personal loan RM300, and proposed housing loan RM1,200) add up to RM2,800, your DSR would be 56%. It is important to note that most Malaysian banks use net income (income after EPF, SOCSO, and income tax deductions) rather than gross income, though some may consider gross income for certain loan products. Debt commitments include all existing instalments such as car loans, personal loans, study loans, credit card minimum payments (typically 5% of outstanding balance or RM50, whichever is higher), hire purchase, and any overdraft facilities. Some banks like Maybank also factor in standing commitments such as rental payments, alimony, and even utility bills when assessing your full financial picture.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">How can I improve my DSR?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>There are several practical strategies to improve your DSR in the Malaysian context. First, prioritise paying off high-interest debts such as credit card balances — clearing a RM10,000 credit card outstanding balance can reduce your minimum monthly commitment by RM500, instantly lowering your DSR. Second, explore ways to increase your income, such as taking on freelance work, requesting a salary increment, or declaring side income streams like e-commerce sales or rental income from a sublet property (with proper documentation). Third, reduce your number of active credit cards — having 5 credit cards with RM50 minimum payments each adds RM250 to your monthly commitments, so close unused cards before applying for a loan. Fourth, consider consolidating multiple debts into a single lower-interest personal loan, which can reduce your total monthly instalment amount — for instance, merging three personal loans with combined monthly payments of RM1,500 into one consolidation loan at RM1,100 saves you RM400 per month. Fifth, use your EPF Account 2 or Account 3 statements as proof of savings and financial discipline, as some banks like RHB and Hong Leong Bank may offer more favourable DSR assessments for applicants who can demonstrate strong EPF contributions and healthy savings history.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">Does DSR affect all types of loan applications?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>Yes, DSR impacts virtually every type of loan application in Malaysia, but the strictness of assessment varies significantly across loan products. Housing loans are the most strictly assessed, with banks typically requiring a DSR below 60-70% because of the large loan amounts and long repayment periods involved — for instance, a RM500,000 home loan over 30 years represents a significant long-term commitment. Car loans generally have slightly more relaxed DSR thresholds, with some banks accepting DSRs up to 70-75% since the loan tenure is shorter (typically 5-9 years) and the collateral (the vehicle) provides additional security for the bank. Personal loans and overdraft facilities are assessed on a case-by-case basis, with banks like Alliance Bank and AmBank sometimes approving applicants with DSRs up to 80% but at higher interest rates. Credit card applications use a different but related assessment — banks evaluate your existing credit utilisation and minimum payment burden, and if your total card minimum payments already consume a large portion of your income, new card applications may be declined or approved with very low credit limits (as low as RM2,000 instead of the typical RM5,000-10,000).</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">What is a healthy DSR for loan approval in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>In Malaysia, a DSR of 30-40% is considered ideal and puts you in the strongest position for loan approval with the best interest rates — for example, with a RM6,000 monthly income and total debts of RM1,800, you sit at a comfortable 30% DSR. A DSR between 40-60% is still widely acceptable for most banks and loan types, though some premium banks like OCBC and Standard Chartered may offer slightly less competitive rates compared to applicants in the ideal range. Once your DSR crosses 60%, approvals become more challenging — banks like Maybank and CIMB may still approve your application but often impose stricter conditions such as requiring a guarantor, requesting additional collateral, or offering the loan at a higher interest rate (BLR + 1.5% instead of BLR + 0.8%). A DSR above 70% is considered high-risk by virtually all Malaysian banks, and your application is likely to be rejected unless you have exceptional circumstances such as a very high net worth, substantial fixed deposits with the bank, or a strong existing banking relationship. As a general rule, keeping your DSR below 50% gives you the most flexibility and negotiating power when applying for financing in Malaysia.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">How does CCRIS and CTOS affect my DSR and loan application?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>CCRIS (Central Credit Reference Information System) and CTOS are the two main credit reporting systems used by Malaysian banks when evaluating your loan application, and both have a direct impact on how your DSR is perceived. CCRIS is maintained by Bank Negara Malaysia and provides a comprehensive record of all your credit facilities, outstanding balances, and monthly payment behaviour over the past 12 months — banks use this to verify the debt commitments you declare in your DSR calculation, and any discrepancies can cause immediate rejection. CTOS, operated by CTOS Data Systems Sdn Bhd, provides additional information including legal cases, bankruptcy records, and litigation history that may not appear in CCRIS. Negative records that can severely hurt your application include late payments (even 1-2 days late are recorded), dishonoured cheques, default judgments, and being listed under the Bankruptcy Act 1967 — for instance, having 3 or more late payment records in your CCRIS report within the past 12 months will likely result in rejection by major banks. To improve your credit profile before applying, request your free CCRIS report from BNM and your CTOS report from myCTOS.com, then ensure all outstanding debts are brought current, dispute any inaccurate records, and maintain at least 6 months of clean on-time payment history before submitting a new loan application.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div className="mt-10 space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How This Calculator Works</h2>
+          <p className="text-muted-foreground leading-relaxed mb-3">
+            This DSR calculator estimates your Debt Service Ratio by dividing your total monthly debt commitments by your gross monthly income and expressing the result as a percentage. The formula is: DSR = (Total Monthly Debt Commitments &divide; Monthly Gross Income) &times; 100%. Most Malaysian banks use net income (after EPF, SOCSO and PCB deductions) for DSR assessment, but this calculator uses gross income as a simpler reference point. The result gives you a quick indication of whether your current debt level is within acceptable limits for Malaysian bank loan approvals.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
+          <p className="text-muted-foreground leading-relaxed mb-3">
+            Enter your total monthly gross income before any deductions. Then list all your existing monthly debt commitments: car loan instalment, credit card minimum payment (usually 5% of outstanding balance or RM50, whichever is higher), personal loan payments, study loan payments, and any existing housing loan instalment. If you are planning to take a new housing loan, leave the housing field at zero — the calculator will show you the maximum housing instalment you can afford based on a 60% DSR threshold. Click Calculate to see your DSR percentage and assessment.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Common Mistakes When Checking DSR</h2>
+          <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
+            <li>Using gross income instead of net income — most Malaysian banks calculate DSR based on income after EPF, SOCSO and income tax deductions.</li>
+            <li>Forgetting to include credit card minimum payments — even small outstanding balances add to your monthly commitment.</li>
+            <li>Not declaring all existing loans — banks verify your debts against CCRIS records, and any undeclared commitments will count against you.</li>
+            <li>Assuming all banks use the same DSR threshold — different banks have different limits, typically ranging from 55% to 70%.</li>
+            <li>Ignoring rental commitments and standing instructions — some banks factor these into your total debt even if they are not formal loans.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Important Limitations</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            This DSR calculator provides a general estimate and does not reflect the exact assessment method used by any specific Malaysian bank. Different banks may use different definitions of income, include different types of commitments, and apply different threshold levels. Some banks also consider your credit history (CCRIS/CTOS), employment stability, savings history, and other factors alongside DSR. This tool does not guarantee loan approval and should be used as a planning reference only. Always consult your preferred bank for an accurate assessment of your borrowing capacity.
+          </p>
+        </div>
       </div>
     </div>
   );

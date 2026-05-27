@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useCalculatorAction } from '@/hooks/use-calculator-action';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Calculator, Car, Info } from 'lucide-react';
 
 function formatCurrency(value: number): string {
@@ -214,44 +213,81 @@ export default function CarLoanCalculator() {
       {/* FAQ */}
       <div className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="q1">
-            <AccordionTrigger>How is car loan interest calculated in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              Most car loans in Malaysia use the flat rate method under the Hire Purchase Act 1967. The total interest is calculated as: Loan Amount × Annual Interest Rate × Loan Tenure (years). Unlike reducing balance loans, the interest is charged on the original principal throughout the entire loan period, regardless of how much you have already repaid. For example, a RM 70,000 loan at 3.5% flat rate for 7 years would have total interest of RM 17,150, resulting in a monthly payment of approximately RM 1,035.12. The effective interest rate (internal rate of return) is approximately 1.8 to 2 times the stated flat rate, so a 3.5% flat rate is equivalent to roughly 6.3-7.0% effective rate. It is important to understand this difference when comparing car loan offers from different banks in Malaysia.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q2">
-            <AccordionTrigger>What is a good down payment for a car in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              The minimum down payment required for new cars in Malaysia is 10% of the on-the-road (OTR) price, as regulated by Bank Negara Malaysia. For used cars, the minimum is typically 20%. However, financial experts strongly recommend putting down at least 20-30% for new cars to reduce your monthly instalment burden and total interest cost. For instance, on a RM 100,000 car, a 10% down payment (RM 10,000) results in a RM 90,000 loan, while a 30% down payment (RM 30,000) reduces the loan to RM 70,000 — saving you thousands in interest over the loan period. A higher down payment also reduces the risk of negative equity, which is a common problem in Malaysia where car depreciation outpaces loan repayment, especially during the first 3-5 years of ownership.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q3">
-            <AccordionTrigger>What is the maximum car loan tenure in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              The maximum car loan tenure in Malaysia is 9 years (108 months), which is the maximum allowed under the Hire Purchase Act 1967. However, most financial advisors and Bank Negara Malaysia recommend keeping the tenure between 5 to 7 years. While a longer tenure of 8-9 years means lower monthly payments, it results in significantly higher total interest paid over the loan period. For example, a RM 80,000 loan at 3.5% flat rate over 5 years costs RM 14,000 in interest, while the same loan over 9 years costs RM 25,200 — an extra RM 11,200 just in interest. Additionally, cars in Malaysia typically lose 40-60% of their value within the first 5 years, so a 9-year loan often means you will still be paying off a car that has depreciated well below its outstanding loan balance.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q4">
-            <AccordionTrigger>Can I get a car loan with bad credit in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              It is possible to get a car loan with a less-than-ideal credit history, but it will be more challenging and expensive. Banks in Malaysia check your CCRIS (Central Credit Reference Information System) and CTOS reports before approving any loan application. If your record shows late payments, defaults, or high existing debt, banks may reject your application or offer a higher interest rate (typically 4-5% flat rate instead of the standard 2.5-3.5%). Some banks may also require a larger down payment of 30-40% to offset the perceived risk. Licensed money lenders and alternative financing companies may be more flexible with credit requirements, but they often charge significantly higher rates of 8-15% per annum. To improve your chances, settle any outstanding debts, ensure all existing loan payments are up to date for at least 6-12 months before applying, and consider getting a co-borrower or guarantor with a strong credit profile.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q5">
-            <AccordionTrigger>What is the difference between fixed rate and variable rate car loans?</AccordionTrigger>
-            <AccordionContent>
-              In Malaysia, the vast majority of car loans use the flat rate method, where the interest is fixed throughout the loan tenure and calculated on the original loan amount. This means your monthly instalment remains the same from the first month to the last, making it easy to budget and plan your finances. Variable rate car loans are extremely rare in Malaysia and are more commonly associated with home loans. Under a variable rate structure, the interest rate fluctuates based on the Base Rate (BR) set by Bank Negara Malaysia, meaning your monthly payment could increase or decrease over time. For car financing, the flat rate method provides predictability and simplicity, which is why it remains the standard. When comparing car loans, focus on the flat rate offered and calculate the effective interest rate to get a true picture of the loan cost.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="q6">
-            <AccordionTrigger>Which banks offer the best car loan rates in Malaysia?</AccordionTrigger>
-            <AccordionContent>
-              Car loan interest rates in Malaysia vary depending on the bank, your credit profile, the car brand, and whether the car is new or used. As of 2025, major banks like Maybank, CIMB, Public Bank, and Hong Leong Bank typically offer flat rates ranging from 2.5% to 3.5% for new national cars (Proton, Perodua) and 2.8% to 4.0% for new non-national cars (Toyota, Honda, etc.). Used car loan rates are generally higher, ranging from 3.5% to 5.0%. Some banks offer promotional rates during festive seasons or year-end sales events that can go as low as 1.9-2.2% for selected models. It is highly recommended to compare offers from at least 3-4 banks before committing. You should also check if your preferred bank has a preferred panel dealer relationship, as this can sometimes unlock better rates. Always calculate the total repayment amount rather than just looking at the monthly instalment to get the best deal.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <div className="space-y-3">
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">How is car loan interest calculated in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>Most car loans in Malaysia use the flat rate method under the Hire Purchase Act 1967. The total interest is calculated as: Loan Amount × Annual Interest Rate × Loan Tenure (years). Unlike reducing balance loans, the interest is charged on the original principal throughout the entire loan period, regardless of how much you have already repaid. For example, a RM 70,000 loan at 3.5% flat rate for 7 years would have total interest of RM 17,150, resulting in a monthly payment of approximately RM 1,035.12. The effective interest rate (internal rate of return) is approximately 1.8 to 2 times the stated flat rate, so a 3.5% flat rate is equivalent to roughly 6.3-7.0% effective rate. It is important to understand this difference when comparing car loan offers from different banks in Malaysia.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">What is a good down payment for a car in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>The minimum down payment required for new cars in Malaysia is 10% of the on-the-road (OTR) price, as regulated by Bank Negara Malaysia. For used cars, the minimum is typically 20%. However, financial experts strongly recommend putting down at least 20-30% for new cars to reduce your monthly instalment burden and total interest cost. For instance, on a RM 100,000 car, a 10% down payment (RM 10,000) results in a RM 90,000 loan, while a 30% down payment (RM 30,000) reduces the loan to RM 70,000 — saving you thousands in interest over the loan period. A higher down payment also reduces the risk of negative equity, which is a common problem in Malaysia where car depreciation outpaces loan repayment, especially during the first 3-5 years of ownership.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">What is the maximum car loan tenure in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>The maximum car loan tenure in Malaysia is 9 years (108 months), which is the maximum allowed under the Hire Purchase Act 1967. However, most financial advisors and Bank Negara Malaysia recommend keeping the tenure between 5 to 7 years. While a longer tenure of 8-9 years means lower monthly payments, it results in significantly higher total interest paid over the loan period. For example, a RM 80,000 loan at 3.5% flat rate over 5 years costs RM 14,000 in interest, while the same loan over 9 years costs RM 25,200 — an extra RM 11,200 just in interest. Additionally, cars in Malaysia typically lose 40-60% of their value within the first 5 years, so a 9-year loan often means you will still be paying off a car that has depreciated well below its outstanding loan balance.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">Can I get a car loan with bad credit in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>It is possible to get a car loan with a less-than-ideal credit history, but it will be more challenging and expensive. Banks in Malaysia check your CCRIS (Central Credit Reference Information System) and CTOS reports before approving any loan application. If your record shows late payments, defaults, or high existing debt, banks may reject your application or offer a higher interest rate (typically 4-5% flat rate instead of the standard 2.5-3.5%). Some banks may also require a larger down payment of 30-40% to offset the perceived risk. Licensed money lenders and alternative financing companies may be more flexible with credit requirements, but they often charge significantly higher rates of 8-15% per annum. To improve your chances, settle any outstanding debts, ensure all existing loan payments are up to date for at least 6-12 months before applying, and consider getting a co-borrower or guarantor with a strong credit profile.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">What is the difference between fixed rate and variable rate car loans?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>In Malaysia, the vast majority of car loans use the flat rate method, where the interest is fixed throughout the loan tenure and calculated on the original loan amount. This means your monthly instalment remains the same from the first month to the last, making it easy to budget and plan your finances. Variable rate car loans are extremely rare in Malaysia and are more commonly associated with home loans. Under a variable rate structure, the interest rate fluctuates based on the Base Rate (BR) set by Bank Negara Malaysia, meaning your monthly payment could increase or decrease over time. For car financing, the flat rate method provides predictability and simplicity, which is why it remains the standard. When comparing car loans, focus on the flat rate offered and calculate the effective interest rate to get a true picture of the loan cost.</p>
+            </div>
+          </details>
+          <details className="group border rounded-lg">
+            <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium hover:underline">Which banks offer the best car loan rates in Malaysia?</summary>
+            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+              <p>Car loan interest rates in Malaysia vary depending on the bank, your credit profile, the car brand, and whether the car is new or used. As of 2025, major banks like Maybank, CIMB, Public Bank, and Hong Leong Bank typically offer flat rates ranging from 2.5% to 3.5% for new national cars (Proton, Perodua) and 2.8% to 4.0% for new non-national cars (Toyota, Honda, etc.). Used car loan rates are generally higher, ranging from 3.5% to 5.0%. Some banks offer promotional rates during festive seasons or year-end sales events that can go as low as 1.9-2.2% for selected models. It is highly recommended to compare offers from at least 3-4 banks before committing. You should also check if your preferred bank has a preferred panel dealer relationship, as this can sometimes unlock better rates. Always calculate the total repayment amount rather than just looking at the monthly instalment to get the best deal.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div className="mt-10 space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How This Calculator Works</h2>
+          <p className="text-muted-foreground leading-relaxed mb-3">
+            This car loan calculator uses the flat rate method, which is the standard calculation method for hire purchase (HP) car loans in Malaysia under the Hire Purchase Act 1967. Under the flat rate method, interest is calculated on the original loan amount throughout the entire tenure, regardless of how much principal has been repaid. The formula is: Total Interest = Loan Amount × Annual Flat Rate × Tenure (years). The monthly instalment is then: (Loan Amount + Total Interest) ÷ (Tenure × 12).
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            For example, a RM 70,000 loan at 3.5% flat rate for 7 years produces total interest of RM 17,150. The monthly instalment would be RM (70,000 + 17,150) ÷ 84 = RM 1,035.12. Note that the effective interest rate is approximately 1.8 to 2 times the flat rate, so a 3.5% flat rate is equivalent to roughly 6.3-7.0% effective rate.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Enter the on-the-road (OTR) price of the car in Ringgit Malaysia (RM). Then enter your planned down payment — the minimum required by BNM is 10% for new cars and 20% for used cars. Enter the flat interest rate offered by your bank (typically 2.5% to 3.5% for new national cars). Finally, enter the loan tenure in years (maximum 9 years under Malaysian law). Click Calculate to see your estimated monthly instalment, total interest, and total repayment amount.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Common Mistakes When Estimating Car Loans</h2>
+          <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
+            <li>Not understanding that flat rate and effective rate are different — a 3% flat rate is roughly equivalent to 5.5-6% effective rate, making the actual loan cost higher than it appears.</li>
+            <li>Choosing the maximum 9-year tenure to get lower monthly payments — this results in significantly higher total interest and risks negative equity as the car depreciates faster than the loan is repaid.</li>
+            <li>Forgetting to factor in insurance, road tax, and maintenance costs which add RM 3,000 to RM 8,000 per year depending on the car.</li>
+            <li>Not comparing rates from at least 3 banks — promotional rates during festive seasons can differ by 0.5% to 1% from standard rates.</li>
+            <li>Ignoring the effect of a larger down payment — increasing your down payment from 10% to 20% can save thousands in total interest over the loan period.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Important Limitations</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            This calculator provides estimates only based on the flat rate method. Actual monthly instalments may vary due to bank processing fees, late payment charges, early settlement penalties, and rounding differences applied by individual banks. The calculator does not account for hire purchase insurance, gap insurance, or extended warranty costs that may be bundled with your car loan package. Interest rates and promotions change frequently — always verify current rates directly with your bank or dealer before committing to a car purchase.
+          </p>
+        </div>
       </div>
     </div>
   );
